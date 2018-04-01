@@ -6,9 +6,9 @@ n.times{ |t|
     a,b = gets.chomp.split(' ')
     ary = a.split('')
     
-    if ary.include?(3)
+    if ary.include?("3")
        ans += (b.to_i * 0.03).floor
-    elsif ary.include?(5)
+    elsif ary.include?("5")
         ans += (b.to_i * 0.05).floor
     else 
         ans += (b.to_i * 0.01).floor
