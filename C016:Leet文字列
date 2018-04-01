@@ -1,0 +1,22 @@
+input_lines = gets.chomp
+s = input_lines.split(//)
+Leet = s.map do |n|
+    if    n == "A"
+        n = 4
+    elsif n == "E"
+        n = 3
+    elsif n == "G"
+        n = 6
+    elsif n == "I"
+        n = 1
+    elsif n == "O"
+        n = 0
+    elsif n == "S"
+        n = 5
+    elsif n == "Z"
+        n = 2
+    else 
+        n = n
+    end
+end
+puts Leet.join('')
