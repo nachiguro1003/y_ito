@@ -1,0 +1,29 @@
+require 'prime'
+
+class Integer
+  def my_divisor_list
+    return [1] if self == 1
+    Prime.prime_division(self).map do |e|
+      Array.new(e[1]+1).map.with_index do |element, i|
+        e[0]**i
+      end
+    end.inject{|p,q| p.product(q)}.map do |a|
+      [a].flatten.inject(&:*)
+    end.sort
+  end
+end
+
+t = gets.to_i
+list = $stdin.read.split("\n").map(&:to_i)
+t.times{ |n|
+ary = list[n].my_divisor_list
+ary.delete_at(-1)
+sum = ary.inject{|result,num| result + num}
+if sum == list[n]
+    puts 'perfect'
+elsif sum + 1 == list[n] || sum - 1 == list[n]
+    puts 'nearly'
+else 
+    puts 'neither'
+end
+}
