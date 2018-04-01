@@ -1,0 +1,33 @@
+vs_1 = gets.split(' ').map(&:to_i)
+vs_2 = gets.split(' ').map(&:to_i)
+ary  = gets.split(' ').map(&:to_i)
+
+fnl = []
+
+ary.each_with_index do |t,i|
+  if  i == vs_1[0] -1
+    vs_1[0] = t
+  elsif i == vs_1[1] -1
+    vs_1[1] = t
+  end
+end
+fnl << vs_1.min
+
+ary.each_with_index do |t,i|
+  if  i == vs_2[0]-1
+    vs_2[0] = t
+  elsif i == vs_2[1] -1
+    vs_2[1] = t
+  end
+end
+fnl << vs_2.min
+
+m = fnl.sort.map{ |n| ary.index(n) }
+
+t = gets.split(' ').map(&:to_i)
+
+if t[0] < t[1]
+  puts m[0]+1,m[1]+1
+else
+  puts m[1]+1,m[0]+1
+end
