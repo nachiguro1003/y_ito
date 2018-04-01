@@ -1,0 +1,21 @@
+n = gets.to_i
+
+ans = []
+h_1 = []
+l_1 = []
+n.times{ |t|
+    ary = gets.split(' ').map(&:to_i)
+    h_1 << ary[2]
+    l_1 << ary[3]
+        if t == 0
+            ans[0] = ary[0]
+        elsif t == n-1
+            ans[1] = ary[1]
+        end
+    
+}
+
+ans[2] = h_1.max
+ans[3] = l_1.min
+
+puts ans.join(' ')
