@@ -6,3 +6,6 @@ n.times{ |t|
          puts t + 1
         end
 }
+
+
+//https://paiza.jp/works/challenges/48/page/problem
