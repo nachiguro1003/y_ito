@@ -1,0 +1,9 @@
+n = gets.to_i
+m = gets.to_i
+
+m.times{
+    r = gets.chomp.split('').map(&:to_i)
+    if not r.include?(n)
+        puts r.join('')
+    end
+}
