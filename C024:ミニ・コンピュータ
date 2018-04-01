@@ -1,0 +1,19 @@
+t = gets.to_i
+
+a=0,0
+
+t.times{
+    ary = gets.chomp.split(' ')
+        if ary[0] == "SET"
+            s = ary[1].to_i
+            n = ary[2].to_i
+            a[s-1] = n
+        elsif ary[0] == "ADD"
+           x = ary[1].to_i
+           a[1] = a[0] + x 
+        elsif ary[0] == "SUB"
+            y = ary[1].to_i
+            a[1] = a[0] - y 
+        end
+}
+puts a.join(' ')
