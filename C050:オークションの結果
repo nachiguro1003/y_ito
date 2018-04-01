@@ -1,0 +1,15 @@
+prc,a,b=gets.chomp.split(' ').map(&:to_i)
+s = [a,b].min
+
+while prc <= s
+    prc += 10
+    prc += 1000
+end
+
+if a > b
+    win = "A"
+else 
+    win = "B"
+end
+
+puts [win,prc].join(' ')
