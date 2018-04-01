@@ -1,0 +1,17 @@
+a = gets.split(' ')
+
+num = []
+kigou = []
+
+a.each { |n| 
+       if  n =~ /^[0-9]+$/
+         num << n.to_i
+        else kigou << n
+        end
+         }
+         
+if a[0] == "x" && a.include?('-') || a[4] == "x" && a.include?('+') || a[2] == "x" && a.include?('-')
+    puts num.inject{|s,t| s+t}
+else
+    puts num.max -num.min
+end
