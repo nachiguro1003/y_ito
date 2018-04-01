@@ -1,0 +1,7 @@
+m,n,l = gets.split(' ').map(&:to_f)
+
+p = 100-n
+
+q = 100-l
+
+puts (m*p*q)/10000
