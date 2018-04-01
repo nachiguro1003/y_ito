@@ -1,0 +1,32 @@
+n = gets.to_i
+
+n.times{
+even =[]
+odd = []
+card = gets.chomp.split('')
+            card.each_with_index{ |t,i|
+                    if i % 2 == 0
+                        even << t.to_i
+                    elsif i % 2 ==1 && t != "x"
+                        odd << t.to_i
+                    end
+            }
+            sum = 0
+             even.each { |n|
+                        if n * 2 >= 10
+                            a,b =(n*2).to_s.split('').map(&:to_i)
+                            sum += a+b
+                        elsif sum += n*2    
+                    end
+                }
+                
+                odd.each{ |s|
+                    sum += s
+        }
+        s = sum % 10
+        if s != 0
+            puts 10 - s
+        else
+            puts 0
+        end
+}
