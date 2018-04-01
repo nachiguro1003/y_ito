@@ -1,0 +1,9 @@
+a,b = gets.split(' ').map(&:to_i)
+s = 100 - b
+ans = a
+while a.floor > 0 
+    a = (a*s/100).floor
+    ans += a
+end
+
+puts ans
