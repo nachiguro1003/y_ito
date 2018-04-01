@@ -1,0 +1,15 @@
+numbers = gets.split(' ').map(&:to_i)
+n = gets.to_i
+
+
+n.times{ |t|
+    ans = 0
+        a = gets.chomp.split(' ').map(&:to_i)
+           a.each do |i|
+                if numbers.include?(i)
+                    ans += 1
+                end
+            end
+    puts ans
+    
+}
