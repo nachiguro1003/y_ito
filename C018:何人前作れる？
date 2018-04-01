@@ -1,0 +1,22 @@
+n = gets.to_i
+rsp = {}
+n.times{ |s|
+        a,b = gets.split(' ')
+        rsp[a] = b.to_i
+}
+m = gets.to_i
+mine = {}
+m.times{ |s|
+        a,b = gets.split(' ')
+        mine[a] = b.to_i
+}
+
+ans = []
+
+rsp.each_key {|t| 
+    if mine.include?(t)
+       ans << (mine[t]/rsp[t]).floor
+    end
+}
+
+puts ans.min
