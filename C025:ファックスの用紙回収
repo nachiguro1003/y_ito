@@ -1,0 +1,19 @@
+m = gets.chomp.to_i
+n = gets.chomp.to_i
+
+k = 0
+i = {}
+ n.times{ |t|
+      a = gets.chomp.split(' ').map(&:to_i)
+    if i[a[0]] == nil
+        i[a[0]] = a[2]
+    else
+        i[a[0]] = i[a[0]] += a[2]
+    end
+ }
+ 
+ ans = 0
+ i.each_value{|s|  ans += (s.to_f/m).ceil }
+
+puts ans
+ 
