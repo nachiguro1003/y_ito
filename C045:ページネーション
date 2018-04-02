@@ -1,0 +1,31 @@
+a,b,c = gets.chomp.split(' ').map(&:to_i)
+
+
+x = (c-1)*b+1
+if a > x && b*c < a
+    i = 0
+    ans = []
+    x = x-1
+        while i < b
+            x += 1
+            ans << x
+            i += 1
+        end
+    puts ans.join(' ')  
+elsif a > x && b*c > a
+    t = b*c-a
+    i = 0
+    ans = []
+    x = x-1
+        while i < b-t
+            x += 1
+            ans << x
+            i += 1
+        end
+    puts ans.join(' ')  
+       
+else
+    puts "none"
+end
+
+#あんまスマートではない
