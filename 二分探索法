@@ -1,0 +1,19 @@
+def src(ary)
+
+  h = 0
+  t = a.size - 1
+  w = 213
+
+  while h <= t
+    c = (h + t)/2
+    if a[c] == w
+      return c - 1
+    elsif  a[c] < w
+      h = c + 1
+    elsif a[c] > w
+      t = c - 1
+    end
+    break if a[c] == w
+  end
+
+end
