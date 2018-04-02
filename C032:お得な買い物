@@ -1,0 +1,22 @@
+g = 0 #grocery
+b = 0 #books
+c = 0 #clothes
+o = 0 #others
+
+n = gets.chomp.to_i
+
+n.times{ 
+    a = gets.split(' ').map(&:to_i)
+    if a[0] == 0
+        g += a[1]
+    elsif a[0] == 1
+        b += a[1]
+    elsif a[0] == 2
+        c += a[1]
+    elsif a[0] == 3
+        o += a[1]
+    end
+}
+
+ans = (g/100)*5 + (b/100) *3 +(c/100)*2 + (o/100)*1
+puts ans
