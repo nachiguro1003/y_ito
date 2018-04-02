@@ -1,0 +1,11 @@
+def src(ary)
+
+i = 0
+while i < ary.size
+  i += 1
+  break if ary[i] == 8
+end
+
+return i
+
+end
