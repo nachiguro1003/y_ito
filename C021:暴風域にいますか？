@@ -1,0 +1,12 @@
+x,y,a,b=gets.split(' ').map(&:to_i)
+
+n = gets.chomp.to_i
+
+n.times{ |t|
+    l,m=gets.chomp.split(' ').map(&:to_i).map(&:abs)
+    if a**2 <= (l-x)**2 + (m-y)**2 && b**2 >= (l-x)**2 + (m-y)**2
+        puts "yes"
+    else 
+        puts "no"
+    end
+}
