@@ -1,0 +1,11 @@
+n = gets.to_i
+
+ans = 0
+i = 1
+n.times{
+    a = gets.to_i
+    ans += (a-i).abs
+    i = a
+}
+
+puts ans
