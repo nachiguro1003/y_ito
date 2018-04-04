@@ -1,0 +1,15 @@
+n = gets.chomp.to_i
+a = gets.chomp.split(' ')
+p ={}
+n.times{ |i|  p[a[i]] = 0 }
+
+m = gets.chomp.to_i
+m.times{ |s|
+    a,b = gets.split(' ')
+    p.each_key{ |l| p[l] += b.to_i if l == a}
+}
+
+puts Hash[p.sort_by{|v,x| -x}].keys
+
+
+#ハッシュ使えるようになってだいぶ楽になってきた
