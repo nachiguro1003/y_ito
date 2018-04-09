@@ -1,0 +1,203 @@
+#正規表現とは
+# パターンを指定して、文字列を効率よく検索・置換するためのミニ言語
+# Regexp　＝　Regular Explessions（正規表現）
+
+text =[]
+
+text_0 = <<TEXT
+I love Ruby.
+Python is a great language.
+Java and JavaScript are different.
+TEXT
+
+puts text_0.scan(/[A-Z][A-Za-z]+/)
+
+text_1 = <<TEXT
+郵便番号1234567
+郵便番号1287387
+郵便番号9537202
+TEXT
+
+puts text_1.gsub(/(\d{3})(\d{4})/,'\1-\2')
+
+
+#　 正規表現は、検索する文字列の文字パターンをまずは見つける（電話番号なら、半角数字が2個～5個、ハイフン、半角数字が1個～4個、ハイフン、半角数字が4個」というよ
+#   うに）
+# 例）
+=begin
+名前：伊藤陽生
+電話：03-1234-5678
+電話：090-1234-5678
+電話：0795-12-3456
+電話：04992-1-2345
+住所：東京都多摩市連光寺2−66−１２
+#ここから電話番号だけ抽出する
+# 文字の量を指定するときは量指定子　{n,m}=>n以上m以下　{n}=>ぴったりn個
+=end
+
+text_2 = <<TEXT
+名前：伊藤陽生
+電話：03-1234-5678
+電話：090-1234-5678
+電話：0795-12-3456
+電話：04992-1-2345
+住所：東京都多摩市連光寺2−66−１２
+TEXT
+
+puts text_2.scan(/(\d{2,5}-\d{1,4}-\d{4})/)
+
+=begin
+-じゃなく、()で仕切る電話番号の書き方も存在する
+その場合は[]の中に-(,-)を入れると、-か(もしくは-か)という条件で検索してくれる
+=end
+
+text_3 = <<TEXT
+名前：伊藤陽生
+電話：03-1234-5678
+電話：090-1234-5678
+電話：0795-12-3456
+電話：04992-1-2345
+電話：042(1323)1833
+住所：東京都多摩市連光寺2−66−１２
+TEXT
+
+puts text_3.scan(/(\d{2,5}-\d{1,4}-\d{4})/) #これだと無理
+puts text_3.scan(/(\d{2,5}[-(]\d{1,4}[-)]\d{4})/) #これだと出てくる
+
+=begin
+微妙な表記の揺れ（例えば半角スペース区切りのところが全角だったり・だったり、濁点付いてなかったり色々）
+を許容する検索について
+?は直前の文字パターンがあるかないかどっちでも許容する（スペースがない場合も考えたい場合）
+.は任意の一文字（何かしらが一文字入っている）
+=end
+
+text_4 = <<-TEXT
+クープバゲットのパンは美味しかった。
+今日はクープ バゲットさんに行きました。
+クープ　バゲットのパンは最高。
+ジャムおじさんのパン、ジャムが入ってた。
+また行きたいです。クープ・バゲット。
+クープ・バケットのパン、売り切れだった（><）
+TEXT
+
+puts text_4.scan(/クープ.?バ[ゲケ]ット/)
+
+
+
+=begin
+<select name="game_console">
+<option value="wii_u">Wii U</option>
+<option value="ps4">プレステ4</option>
+<option value="gb">ゲームボーイ</option>
+</select>
+これをCSVに落として
+wii_u,Wii U
+ps4,プレステ4
+gb,ゲームボーイ
+という結果が欲しいという場合
+=end
+
+=begin
+まずvalueを抜き出す。
+「value=、ダブルクオート、英数字またはアンダースコアが1文字以上、ダブルクオート」
+=end
+
+text_html = <<TEXT
+<select name="game_console">
+<option value="wii_u">Wii U</option>
+<option value="ps4">プレステ4</option>
+<option value="gb">ゲームボーイ</option>
+TEXT
+
+puts text_html.scan(/value="[0-9a-zA-Z_]+"/)
+ #=>value="wii_u"
+    value="ps4"
+    value="gb"
+
+=begin
+表示テキストを抜き出す
+「><で挟まれている何かしらの文字列」
+=end
+puts text_html.scan(/>.+</)
+#=>>Wii U< 　>プレステ4<　>ゲームボーイ<
+
+
+=begin
+今回のようなケースであれば、次のように処理
+
+行全体にマッチする正規表現を作る
+valueと表示テキストの部分をそれぞれ ( ) で囲んでキャプチャする
+キャプチャを利用して新しい文字列を組み立てる
+=end
+
+puts text_html.scan(/<option value="[\w_]+">.+<\/option>/)#行全体を検索
+#=><option value="wii_u">Wii U</option> <option value="ps4">プレステ4</option> <option value="gb">ゲームボーイ</option>
+
+#それぞれを括弧でくくる＝内部の文字列をキャプチャもしくはグループ化する
+puts text_html.scan (/<option value="([\w_]+)">(.+)<\/option>/)
+
+#=>
+# wii_u
+# Wii U
+# ps4
+# プレステ4
+# gb
+# ゲームボーイ
+
+text_html_2 = <<TEXT
+<select name="game_console">
+<option value="none"></option>
+<option value="wii_u">Wii U</option>
+<option value="ps4">プレステ4</option>
+<option value="gb">ゲームボーイ</option>
+</select>
+TEXT
+#表示テキストがないものも置換する場合
+# ０文字以上の文字列が入ってるかという条件で検索する
+puts text_html_2.scan (/<option value="([\w_]+)">(.*)<\/option>/)
+=begin
+none
+
+wii_u
+Wii U
+ps4
+プレステ4
+gb
+ゲームボーイ
+=end
+
+#これらをカンマで区切って出力させる
+#キャプチャした文字列を＼で指定して参照する（＼１見たいに）
+puts text_html_2.gsub(/<option value="([\w_]+)">(.*)<\/option>/,'\1,\2')
+=begin
+<select name="game_console">
+none,
+wii_u,Wii U
+ps4,プレステ4
+gb,ゲームボーイ
+</select>
+=end
+#今のままだと貪欲なマッチになってしまい、<option value="ps4">プレステ4</option><option value="gb">ゲームボーイ</option>
+# みたいな文字列だと
+# 1.  ps4
+# 2.  プレステ4</option><option value="gb">ゲームボーイ
+# という感じでキャプチャしてしまう
+# そこで、(.*)をもう少し厳しい条件に変える
+# ([^<]*)これだと<以外の０字以上の文字列という形になる
+
+x = <<TEXT
+<option value="ps4">プレステ4</option><option value="gb">ゲームボーイ</option>
+TEXT
+ puts x.gsub(/<option value="(\w+)"(?: selected)?>([^<]*)<\/option>/,'\1,\2'"\n")
+#これで繋がってる奴も改行して出せる
+
+hoge = <<TEXT
+You say yes. - @jnchito 8s
+I say no. - @BarackObama 12m
+You say stop. - @dhh 7h
+I say go go go. - @ladygaga Feb 20
+Hello, goodbye. - @BillGates 11 Apr 2015
+TEXT
+
+#puts hoge.scan(/^(.*) - (@\w+) (\d+[smh]|(?:\d+ )?[A-Z][a-z]{2} \d+)/)
+
