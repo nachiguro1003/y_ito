@@ -1,0 +1,44 @@
+currencies = {'japan' => 'yen', 'US' => 'dollar', 'EU' => 'euro'}
+ currencies['india'] = 'rupie'
+puts currencies
+
+currencies['japan'] += '円' # キーを指定して値にどんどん足していける
+puts currencies
+
+puts currencies.size #配列の数を数える
+
+currencies.delete('Italy'){|n| puts "not found : #{n}"} #削除するキーが見つからない時に、戻り値を指定できる
+
+:apple #シンボルは見た目は文字列だが、振る舞いは整数だったりする。処理が高速。
+
+puts :apple.object_id #=> 938908 文字列だと毎回変わるけどシンボルなら変わらない。イミュータブル。
+
+currencies = {:japan => 'yen', :US=> 'dollar', :EU => 'euro'} #これは
+
+currencies = {japan:'yen', US: 'dollar', EU: 'euro'} #こう書き直せる
+
+puts currencies[:japan] #早い
+
+#メソッドのキーワード引数にハッシュを使うこともできる
+def buy_burger(menu, drink: true, potate: true)
+end #的な
+
+#長さの変換プログラムを作成する
+# メートル、フィート、インチをそれぞれ相互に変換する
+# 第一引数に変換元の長さ、第二引数に変換元の単位、第三引数に変換先の単位
+# メソッドの戻り値は変換後の長さ、端数が出る場合は小数点第3位で四捨五入
+# 例）
+# convert_length(1,'m','in') => 39.37
+#
+# メートルとその他の単位との比率をハッシュで定義し、そのハッシュを使って単位を変換する。
+#
+# units ={'m' => 1.0, 'ft' => 3.28, 'in' =>39.37}
+#
+# 変換後の数値　＝　変換前の単位の長さ　/ 変換後の単位の比率　＊　変換後の単位の比率
+#
+
+UNITS ={m: 1.0, ft:  3.28, in: 39.37}
+def convert_length(length,from: :m,to: :m) #ハッシュを使って入力の種類を明示する＝後から見た時にわかりやすい
+ (length / UNITS[from] * UNITS[to]).round(2)
+end
+
