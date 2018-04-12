@@ -3,16 +3,16 @@
 
 
 n, a, b = gets.split(' ').map(&:to_i)
-ary = (1..n).to_a
+ary = (1..n).to_a #nまでの配列を作る
 sum = 0
-n.times { |t|
-    i = ary[t]
-      arr = []
-      arr = ary[t].to_s.split('').map(&:to_i)
-        x = arr.inject { |l, m| l + m }
+n.times { |t|　
+    i = ary[t]　#１つずつ変数iにStringClassとして数字を格納
+      arr = []　#arrという別の配列を用意
+      arr = ary[t].to_s.split('').map(&:to_i)　#StringClassであるiを配列にし、整数としてarrにそれぞれ格納していく
+        x = arr.inject { |l, m| l + m }　#arrの合計をだす
           if a<=x && b>=x
             sum += i
-          end
+          end　#xの合計がA 以上 B 以下の場合、iをsumに加算していく
 }
  
 puts sum
