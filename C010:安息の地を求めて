@@ -1,0 +1,11 @@
+a,b,r = gets.chomp.split(' ').map(&:to_i)
+n = gets.chomp.to_i
+
+n.times{ 
+     x,y=gets.chomp.split(' ').map(&:to_i)
+     if (x-a)**2+(y-b)**2>=r**2
+        puts "silent"
+    else
+        puts "noisy"
+    end
+}
