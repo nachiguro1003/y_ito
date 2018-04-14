@@ -1,0 +1,27 @@
+n = gets.to_i
+arr = {}
+n.times{ |t|
+    a = gets.chomp.split(' ')
+    arr[a[0]]=a[1].to_i
+}
+city = gets.chomp.split(' ')
+x = city[1].split(':').map(&:to_i)
+name = city[0]
+time_h = x[0]
+time_m = sprintf("%02d",x[1])
+std_time = (time_h - arr[name]).abs
+
+arr.each_value{ |i|
+  m = i + std_time
+  m = sprintf("%02d",m)
+  if m.to_i <= 24
+   puts "#{m}:#{time_m}"
+ else
+   l = m.to_i - 24
+   l = sprintf("%02d",l)
+  puts "#{l}:#{time_m}"
+end
+}
+
+
+#できない。。。
