@@ -1,0 +1,38 @@
+n = gets.to_i
+all = []
+arr = []
+x = 0
+
+n.times{ |t|
+    a = gets.chomp.split(' ').map(&:to_i)
+        if a.include?(0)
+            a.each_with_index{|v,i|arr << [t,i] if v == 0}
+            all << a
+        else
+           x = a.inject(:+)
+           all << a
+        end
+}
+sum_1 = 0
+sum_2 = 0
+v = arr[0][1]
+h = arr[0][0]
+r = arr[1][0]
+i = arr[1][1]
+if h == r
+    all.each_with_index do |s,t|
+        sum_1 += all[t][v]
+    end
+    all[h][v] = x - sum_1
+    all.each_with_index do |k,q|
+        sum_2 += all[q][i]
+    end
+    all[r][i] = x - sum_2
+else 
+    all[h][v] = x - all[h].inject(:+)
+    all[r][i] = x - all[r].inject(:+)
+end
+
+n.times{|t| puts all[t].join(' ')}
+    
+    #やったーーー
