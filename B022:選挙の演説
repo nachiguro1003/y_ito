@@ -1,0 +1,20 @@
+m,n,k = gets.split(' ').map(&:to_i)
+arr = {}
+m.times{|t|  arr[t]=0}
+arr[m] = n
+sum = 0
+k.times{
+      a = (gets.chomp.to_i) -1
+      arr.each_pair{|x,y|
+        if y > 0 && x != a
+          arr[x] -= 1
+          sum += 1
+        end
+    }
+arr[a] += sum
+}
+arr.delete(m)
+max_a = arr.values.max
+bests = arr.select{|k,v| v == max_a}
+ans = bests.keys.map{|t| t += 1}
+puts ans
