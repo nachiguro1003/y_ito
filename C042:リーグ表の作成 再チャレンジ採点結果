@@ -1,0 +1,27 @@
+ n = gets.chomp.to_i
+    game_times=n*(n-1)/2
+    res=[]
+    game_times.times{ |x|
+        x = gets.chomp.split(' ').map(&:to_i)
+        res << x
+    }
+    res.sort!
+
+    ans=[]
+    arr=[]
+    i=1
+    while i <= n
+       arr=res.select{|x| x.include?(i)}
+       arr.each do |t|
+          if t[0] == i
+            ans[t[1]-1]="W"
+          else t[1] == i
+            ans[t[0]-1]="L"
+          end
+        end
+        ans[i-1]="-"
+        puts ans.compact.join(' ')
+        ans=Array.new()
+        arr=Array.new()
+        i+=1
+    end
