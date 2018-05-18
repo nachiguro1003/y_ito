@@ -1,0 +1,40 @@
+#ムービーウォーカーに掲載されているその年のオススメ映画一覧から、タイトルと監督をスクレイプし、yml形式に変換
+
+# URLにアクセスするためのライブラリの読み込み
+require 'open-uri'
+# Nokogiriライブラリの読み込み
+require 'nokogiri'
+
+file_to_m = File.open('整形データ.yml','w')
+file_to_d = File.open('監督データ.txt','w')
+url = 'https://movie.walkerplus.com/list/2017/'
+
+def text_format(str)
+    str.strip.gsub(/(\r\n|\r|\n|\f)/,"")
+end
+
+def get_html(url)
+  charset = nil
+  html = open(url) do |f|
+    charset = f.charset # 文字種別を取得
+    f.read # htmlを読み込んで変数htmlに渡す
+  end
+  doc = Nokogiri::HTML.parse(html, nil, charset)
+end
+
+year=2017
+URL="https://movie.walkerplus.com/list/#{year}/"
+TITLE = '//div[@class="movie"]/h3'
+DIRECTOR='//dl[@class="directorList"]/dd/a'
+
+titles=[]
+directors=[]
+doc = get_html(URL)
+
+titles = doc.xpath(TITLE).map(&:inner_text)
+directors = doc.xpath(DIRECTOR).map(&:inner_text)
+
+titles.zip(directors) do |t,d|
+  file_to_m.puts "  -\n    title: #{t}"
+  file_to_m.puts "    director: #{d}"
+end
