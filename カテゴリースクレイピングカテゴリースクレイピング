@@ -1,0 +1,29 @@
+#filmarksのカテゴリー一覧からカテゴリーのみを抽出し、yml形式に変換するスクリプト
+
+# URLにアクセスするためのライブラリの読み込み
+require 'open-uri'
+# Nokogiriライブラリの読み込み
+require 'nokogiri'
+
+#'categories.yml'に書き込むクラスを変数に代入
+file_to_c = File.open('categories.yml','w')
+
+def get_html(url)
+  charset = nil
+  html = open(url) do |f|
+    charset = f.charset # 文字種別を取得
+    f.read # htmlを読み込んで変数htmlに渡す
+  end
+  doc = Nokogiri::HTML.parse(html, nil, charset)
+end
+
+URL = 'https://filmarks.com/list/genre'
+CATEGORY = '//ul[@class="c-search-panel__links--5col is-show-all"]/li/a'
+
+
+category=[]
+doc = get_html(URL)
+category = doc.xpath(CATEGORY).map(&:inner_text)
+category.each do |x|
+  file_to_c.puts "  -\n    name: #{x}"
+end
